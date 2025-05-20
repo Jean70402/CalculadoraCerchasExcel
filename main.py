@@ -7,10 +7,13 @@ from discretizacion.subrutina_num_to_g_g import subrutina_num_to_g_g
 
 
 def main():
+    #Lectura de datos de excel, y definir variables globales
     discretizacion.lecturaDatos.leer_datos_desde_excel()
 
+    #Creación de matriz nf (gdl)
     subrutina_form_nf()
-    
+
+    #Creacion de matriz g_g (grados de libertad por elemento)
     subrutina_num_to_g_g()
     
     print("La matriz nf:")

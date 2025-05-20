@@ -1,18 +1,16 @@
 
 import pandas as pd
 import numpy as np
-import discretizacion.datosGenerales as gd  # Usamos gd
-from discretizacion.subrutina_form_nf import subrutina_form_nf
-from discretizacion.subrutina_num_to_g_g import subrutina_num_to_g_g
-
+import discretizacion.datosGenerales as gd  # Usamos gd para llamar variables globales
 
 # Lectura de datos desde Excel
 def leer_datos_desde_excel(ruta="datos/datos.xlsx"):
+    #Creamos variables de nodos, datos y elementos.
     nodos = pd.read_excel(ruta, sheet_name="Nodos")
     datos = pd.read_excel(ruta, sheet_name="Datos")
     elementos = pd.read_excel(ruta, sheet_name="Elementos")
 
-    # Lectura de datos
+    # Lectura de datos a variables globales
     gd.ndim = int(datos.values[0][0])
     gd.inf_nodos = nodos.values.tolist()
     gd.inf_elementos = elementos.values.tolist()
