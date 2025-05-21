@@ -1,4 +1,5 @@
-import numpy as np
+
+#Variables globales
 
 ndim = None
 nn = None

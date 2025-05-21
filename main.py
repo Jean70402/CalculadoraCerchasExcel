@@ -1,4 +1,3 @@
-# main.py
 
 import discretizacion.lecturaDatos
 import discretizacion.datosGenerales as gd

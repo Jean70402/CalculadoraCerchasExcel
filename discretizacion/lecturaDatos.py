@@ -1,7 +1,7 @@
-
 import pandas as pd
 import numpy as np
 import discretizacion.datosGenerales as gd  # Usamos gd para llamar variables globales
+
 
 # Lectura de datos desde Excel
 def leer_datos_desde_excel(ruta="datos/datos.xlsx"):
