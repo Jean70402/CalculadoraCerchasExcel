@@ -53,6 +53,3 @@ def pin_jointed():
 
     gd.elementos = np.array(elementos)
     gd.km_locales = km_list
-
-    #print("Primer km local:")
-    #print(km_list)
