@@ -3,6 +3,7 @@ import numpy as np
 import discretizacion.datosGenerales as gd  # Usamos gd
 
 def subrutina_num_to_g_g():
+    nband=0
     # Transforma en un array el inf_elementos para analizarlo
     # mediante numpy, para obtener la conectividad de los elementos
     gd.inf_elementos = np.array(gd.inf_elementos)
@@ -22,3 +23,13 @@ def subrutina_num_to_g_g():
             # En 2d, primero se asigna el valor de columna 1, luego 3, luego 2, luego 4.
             gd.g_g[i, j] = gd.nf[num_i, j]
             gd.g_g[i, j + gd.ndim] = gd.nf[num_j, j]
+
+        no_ceros = gd.g_g[i][gd.g_g[i] != 0]
+
+        if no_ceros.size > 0:
+            nband_new=(no_ceros.max() - no_ceros.min()+1)
+            if nband_new>nband:
+                nband=nband_new
+    print("El ancho de banda es:")
+    print(nband)
+    #print(gd.g_g)
