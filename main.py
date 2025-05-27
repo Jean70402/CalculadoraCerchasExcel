@@ -14,7 +14,6 @@ def main():
 
     #Creacion de matriz g_g (grados de libertad por elemento)
     subrutina_num_to_g_g()
-    '''
     
     print("La matriz nf:")
     print(gd.nf)
@@ -24,7 +23,10 @@ def main():
 
     print("La matriz g_g:")
     print(gd.g_g)
-    '''
+
+    print("El ancho de banda es:")
+    print(gd.nband)
+
     pin_jointed()
 
 if __name__ == "__main__":
