@@ -1,9 +1,9 @@
-
 import discretizacion.lecturaDatos
 import discretizacion.datosGenerales as gd
 from discretizacion.subrutina_form_nf import subrutina_form_nf
 from discretizacion.subrutina_num_to_g_g import subrutina_num_to_g_g
 from discretizacion.subrutina_pin_jointed import pin_jointed
+
 
 def main():
     # Lectura de datos de excel, y definir variables globales
@@ -31,6 +31,7 @@ def main():
 
     print("Primer km local:")
     print(gd.km_locales[1])
+
 
 if __name__ == "__main__":
     main()
