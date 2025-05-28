@@ -2,8 +2,8 @@ import numpy as np
 
 import discretizacion.datosGenerales as gd  # Usamos gd
 
-def subrutina_num_to_g_g():
 
+def subrutina_num_to_g_g():
     # Transforma en un array el inf_elementos para analizarlo
     # mediante numpy, para obtener la conectividad de los elementos
     gd.inf_elementos = np.array(gd.inf_elementos)
@@ -24,11 +24,10 @@ def subrutina_num_to_g_g():
             gd.g_g[i, j] = gd.nf[num_i, j]
             gd.g_g[i, j + gd.ndim] = gd.nf[num_j, j]
 
+        #Diferencia los valores de 0 encontrados en num_to_g
         no_ceros = gd.g_g[i][gd.g_g[i] != 0]
-
+        #Para valores mayores a 0 en num_to_g haya el valor máximo para el nband, de manera iterativa.
         if no_ceros.size > 0:
-            nband_new=(no_ceros.max() - no_ceros.min()+1)
-            if nband_new>gd.nband:
-                gd.nband=nband_new
-
-    #print(gd.g_g)
+            nband_new = (no_ceros.max() - no_ceros.min() + 1)
+            if nband_new > gd.nband:
+                gd.nband = nband_new
