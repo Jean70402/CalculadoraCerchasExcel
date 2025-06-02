@@ -6,7 +6,7 @@ def subrutina_form_nf():
     for i in range(gd.nn):
         for j in range(gd.ndim):
             # Si encuentra un 1 en la iteracion, suma en 1 neq y reemplaza en nf
-            if gd.inf_nodos[i][5 + j] == 1:
+            if gd.inf_nodos[i][6 + j] == 1:
                 gd.neq += 1
                 gd.nf[i][j] = gd.neq
             else:

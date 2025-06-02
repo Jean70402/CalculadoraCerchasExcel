@@ -53,6 +53,47 @@ def pin_jointed():
             # Añadir longitud a la fila de elementos
             completo = np.append(fila, ell)
             elementos.append(completo)
+        if gd.ndim == 3:
+            x1 = coords_j[0]
+            y1 = coords_j[1]
+            z1 = coords_j[2]
+            x2 = coords_i[0]
+            y2 = coords_i[1]
+            z2 = coords_i[2]
+
+            xl = x2-x1
+            yl = y2-y1
+            zl = z2-z1
+
+            ell= math.sqrt((xl*xl)+(yl*yl)+(zl*zl))
+            xl=xl/ell
+            yl=yl/ell
+            zl=zl/ell
+            a=xl*xl
+            b=yl*yl
+            c=zl*zl
+            d=xl*yl
+            e=yl*zl
+            f=zl*xl
+
+            ea_L = fila[0]
+            # Cálculo y formación de la matriz km de 1 elemento:
+            km_local = np.array([
+                [a, d, f, -a, -d, -f],
+                [d, b, e, -d, -b, -e],
+                [f, e, c, -f, -e, -c],
+                [-a, -d, -f, a, d, f],
+                [-d, -b, -e, d, b, e],
+                [-f, -e, -c, f, e, c]
+            ])
+
+            km_local = km_local * ea_L
+            # Añadir el km local al km global
+            km_g.append(km_local)
+            # Añadir longitud a la fila de elementos
+            completo = np.append(fila, ell)
+            elementos.append(completo)
+
     # Ubicación de variables en memoria global:
     gd.elementos = np.array(elementos)
     gd.km_locales = km_g
