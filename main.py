@@ -1,5 +1,6 @@
 import discretizacion.lecturaDatos
 import discretizacion.datosGenerales as gd
+from discretizacion.subrutina_form_kv import form_kv
 from discretizacion.subrutina_form_nf import subrutina_form_nf
 from discretizacion.subrutina_num_to_g_g import subrutina_num_to_g_g
 from discretizacion.subrutina_pin_jointed import pin_jointed
@@ -17,6 +18,12 @@ def main():
 
     pin_jointed()
 
+    form_kv()
+
+    print("La matriz nf:")
+
+    '''
+    
     print("La matriz nf:")
     print(gd.nf)
 
@@ -31,6 +38,7 @@ def main():
 
     print("Primer km local:")
     print(gd.km_locales[1])
+    '''
 
 
 if __name__ == "__main__":
