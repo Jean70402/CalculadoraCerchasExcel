@@ -4,6 +4,7 @@ import numpy as np
 
 import discretizacion.datosGenerales as gd
 
+
 def pin_jointed():
     # define una lista de matriz vacia para elementos y para los km generados:
     elementos = []
@@ -38,7 +39,7 @@ def pin_jointed():
             b = sen * sen
             c = cos * sen
             # Recuperación del valor de EA
-            ea_L = fila[0]/ell
+            ea_L = fila[0] / ell
             # Cálculo y formación de la matriz km de 1 elemento:
             km_local = np.array([
                 [a, c, -a, -c],
@@ -61,20 +62,20 @@ def pin_jointed():
             y2 = coords_i[1]
             z2 = coords_i[2]
 
-            xl = x2-x1
-            yl = y2-y1
-            zl = z2-z1
+            xl = x2 - x1
+            yl = y2 - y1
+            zl = z2 - z1
 
-            ell= math.sqrt((xl*xl)+(yl*yl)+(zl*zl))
-            xl=xl/ell
-            yl=yl/ell
-            zl=zl/ell
-            a=xl*xl
-            b=yl*yl
-            c=zl*zl
-            d=xl*yl
-            e=yl*zl
-            f=zl*xl
+            ell = math.sqrt((xl * xl) + (yl * yl) + (zl * zl))
+            xl = xl / ell
+            yl = yl / ell
+            zl = zl / ell
+            a = xl * xl
+            b = yl * yl
+            c = zl * zl
+            d = xl * yl
+            e = yl * zl
+            f = zl * xl
 
             ea_L = fila[0]
             # Cálculo y formación de la matriz km de 1 elemento:
