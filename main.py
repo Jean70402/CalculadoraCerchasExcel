@@ -21,8 +21,6 @@ def main():
     form_kv()
 
     print("La matriz nf:")
-
-    '''
     
     print("La matriz nf:")
     print(gd.nf)
@@ -38,8 +36,9 @@ def main():
 
     print("Primer km local:")
     print(gd.km_locales[1])
-    '''
 
+    print("El vector de kv:")
+    print(gd.kv)
 
 if __name__ == "__main__":
     main()
