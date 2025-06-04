@@ -16,3 +16,4 @@ def form_kv():
                         ival = int(gd.neq * (icd - 1) + g[i])
                         kv[ival - 1] += gd.km_locales[contador1][i][j]
     gd.kv = kv
+
