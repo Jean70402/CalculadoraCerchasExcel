@@ -1,9 +1,9 @@
 import discretizacion.lecturaDatos
 import discretizacion.datosGenerales as gd
-from discretizacion.subrutina_form_kv import form_kv
+from Ensamble.subrutina_form_kv import form_kv
 from discretizacion.subrutina_form_nf import subrutina_form_nf
 from discretizacion.subrutina_num_to_g_g import subrutina_num_to_g_g
-from discretizacion.subrutina_pin_jointed import pin_jointed
+from Ensamble.subrutina_pin_jointed import pin_jointed
 
 
 def main():
@@ -16,8 +16,12 @@ def main():
     # Creacion de matriz g_g (grados de libertad por elemento)
     subrutina_num_to_g_g()
 
+    #Creación de elementos de matriz de rigidez locales y
+    #transformación a globales para ensamble, guardados en km
     pin_jointed()
 
+    #Ensamble del vector kv, que toma la diagonal principal
+    #y la sección triangular superior para aprovechar simetría
     form_kv()
 
     print("La matriz nf:")
