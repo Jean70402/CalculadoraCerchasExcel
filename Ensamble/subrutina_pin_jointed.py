@@ -1,7 +1,7 @@
 import math
 
 import numpy as np
-
+from discretizacion.insertarEA import insertarEa
 import discretizacion.datosGenerales as gd
 
 
@@ -39,7 +39,8 @@ def pin_jointed():
             b = sen * sen
             c = cos * sen
             # Recuperación del valor de EA
-            ea_L = fila[0] / ell
+            ea = insertarEa(fila[0])
+            ea_L = ea / ell
             # Cálculo y formación de la matriz km de 1 elemento:
             km_local = np.array([
                 [a, c, -a, -c],

@@ -14,3 +14,4 @@ km_locales=None
 kv=None
 num = None
 g_g = None
+props =None

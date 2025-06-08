@@ -9,11 +9,14 @@ def leer_datos_desde_excel(ruta="datos/datos.xlsx"):
     nodos = pd.read_excel(ruta, sheet_name="Nodos")
     datos = pd.read_excel(ruta, sheet_name="Datos")
     elementos = pd.read_excel(ruta, sheet_name="Elementos")
-
+    props = pd.read_excel(ruta, sheet_name="Props")
     # Lectura de datos a variables globales
     gd.ndim = int(datos.values[0][0])
     gd.inf_nodos = nodos.values.tolist()
     gd.inf_elementos = elementos.values.tolist()
+
+    #Inicializar EA propiedades
+    gd.props= props.values.tolist()
 
     #definir numero de nodos
     gd.nn = len(nodos)
@@ -21,3 +24,4 @@ def leer_datos_desde_excel(ruta="datos/datos.xlsx"):
     gd.nels = len(elementos)
     #Inicializar la matriz nf (matriz con grados de libertad)
     gd.nf = np.zeros((gd.nn, gd.ndim))
+
