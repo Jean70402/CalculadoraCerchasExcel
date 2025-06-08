@@ -4,7 +4,7 @@ from Ensamble.subrutina_form_kv import form_kv
 from discretizacion.subrutina_form_nf import subrutina_form_nf
 from discretizacion.subrutina_num_to_g_g import subrutina_num_to_g_g
 from Ensamble.subrutina_pin_jointed import pin_jointed
-
+from Ensamble.subrutina_loads import calcular_loads
 
 def main():
     # Lectura de datos de excel, y definir variables globales
@@ -24,6 +24,9 @@ def main():
     #y la sección triangular superior para aprovechar simetría
     form_kv()
 
+    #Recupera el vector de fuerzas
+    calcular_loads()
+
     print("La matriz nf:")
     print(gd.nf)
 
@@ -41,6 +44,9 @@ def main():
 
     print("El vector de kv:")
     print(gd.kv)
+
+    print("El vector de cargas:")
+    print(gd.loads)
 
 if __name__ == "__main__":
     main()

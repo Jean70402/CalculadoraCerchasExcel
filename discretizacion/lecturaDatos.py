@@ -17,11 +17,12 @@ def leer_datos_desde_excel(ruta="datos/datos.xlsx"):
 
     #Inicializar EA propiedades
     gd.props= props.values.tolist()
-
     #definir numero de nodos
     gd.nn = len(nodos)
     #definir el numero de elementos
     gd.nels = len(elementos)
     #Inicializar la matriz nf (matriz con grados de libertad)
     gd.nf = np.zeros((gd.nn, gd.ndim))
+
+
 
