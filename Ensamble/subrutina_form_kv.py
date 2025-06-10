@@ -5,7 +5,9 @@ import discretizacion.datosGenerales as gd
 
 
 def form_kv():
-    kv = zeros(int(gd.neq * (gd.neq + 1) / 2))
+    print(gd.neq)
+    kv = zeros(int(gd.neq + ((gd.neq - 1) * gd.neq / 2)))
+    print(len(kv))
     for contador1 in range(len(gd.g_g)):
         g = gd.g_g[contador1, :]
         for i in range(2 * gd.ndim):

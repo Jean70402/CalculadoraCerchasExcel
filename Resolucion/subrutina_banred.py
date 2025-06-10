@@ -5,18 +5,24 @@ from Resolucion.subrutina_backsub import backward_substitution_band,forward_subs
 
 def subrutina_banred():
     print("Aqui viene Banred")
-    n = gd.neq
-    print(n)
-    bk = np.array(gd.kv)
-    bk_ordenado = bk.reshape(-1, n)
-    bw = int(gd.nband)
-    L = cholesky_band(bk_ordenado, bw)
+    n     = gd.neq
+    bk    = np.array(gd.kv)
+    # filas = número real de diagonales almacenadas
+    rows  = bk.size // n
+    # ancho de banda efectivo
+    bw_eff = rows - 1
+
+    # sólo tomo esa porción útil
+    bk_band    = bk[: rows * n]
+    bk_ordenado = bk_band.reshape(rows, n)
+
+    L = cholesky_band(bk_ordenado, bw_eff)
     inv_mat = np.zeros((n, n))
     for j in range(n):
         e = np.zeros(n)
         e[j] = 1.0
-        y = forward_substitution_band(L, bw, e)
-        x = backward_substitution_band(L, bw, y)
+        y = forward_substitution_band(L, bw_eff, e)
+        x = backward_substitution_band(L, bw_eff, y)
         inv_mat[:, j] = x
     print("Inversa de la matriz reducida es:")
     gd.inv_mat = inv_mat
