@@ -40,9 +40,32 @@ def transformar_barra_angulo():
 
         # detalle para 1 dimension
         if gd.ndim == 1:
-            ell = list(coords_i[0] - coords_j[0])
-            gd.elementos.append(ell)
-        # detalle para 2 dimensiones
+
+            x1 = coords_j[0]
+            x2 = coords_i[0]
+            ell = abs(x2 - x1)
+            ea = insertarEa(fila[0])
+            ea_L = ea / ell
+
+            conex = gd.num[idx]
+            print("conex:", conex)
+            u_global = np.zeros((2, 1))
+
+            for i in range(2):
+                u_global[i, 0] = gd.u_completa[conex[i], 0]  # asigna valor desde u_completa
+
+            print("Uglobal:")
+            print(u_global)
+
+            u_local = u_global  # en 1D no rotas nada
+            axial = ea_L * (u_local[0] - u_local[1])
+            if abs(axial) < 1e-8:
+                axial = 0.0
+            else:
+                axial = axial.item()
+            axiales.append(axial)
+
+    # detalle para 2 dimensiones
         if gd.ndim == 2:
             # Toma de datos de las posiciones de nodos conectados
             x1 = coords_j[0]
@@ -67,7 +90,7 @@ def transformar_barra_angulo():
 
             for i in range(2 * gd.ndim):
                 if conex[i] != 0:
-                    u_global[i, 0] = gd.u_completa[conex[i] + 1, 0]  # asigna valor desde u_completa
+                    u_global[i, 0] = gd.u_completa[conex[i]+1, 0]  # asigna valor desde u_completa
             #print(u_global)
             u_local = mat_angulo @ u_global
             #print(u_local)
