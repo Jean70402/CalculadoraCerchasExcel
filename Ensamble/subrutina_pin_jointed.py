@@ -77,8 +77,8 @@ def pin_jointed():
             d = xl * yl
             e = yl * zl
             f = zl * xl
-
-            ea_L = fila[0]
+            ea = insertarEa(fila[0])
+            ea_L = ea / ell
             # Cálculo y formación de la matriz km de 1 elemento:
             km_local = np.array([
                 [a, d, f, -a, -d, -f],

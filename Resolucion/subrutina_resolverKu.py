@@ -7,6 +7,5 @@ def subrutina_resolverKu():
 
     # Multiplicar
     result = inv_mat @ gd.loads_reducido
-
-    print("Resultado multiplicación:")
+    gd.mat_def_u = result
     print(result)

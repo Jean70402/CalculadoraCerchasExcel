@@ -7,6 +7,9 @@ from Ensamble.subrutina_pin_jointed import pin_jointed
 from Ensamble.subrutina_loads import calcular_loads
 from Resolucion.subrutina_banred import subrutina_banred
 from Resolucion.subrutina_resolverKu import subrutina_resolverKu
+from Postprocesamiento.subrutina_postprocesamiento import obtener_mat_def_completa,transformar_barra_angulo, obtenerReacciones
+
+
 def main():
     # Lectura de datos de excel, y definir variables globales
     discretizacion.lecturaDatos.leer_datos_desde_excel()
@@ -17,15 +20,15 @@ def main():
     # Creacion de matriz g_g (grados de libertad por elemento)
     subrutina_num_to_g_g()
 
-    #Creación de elementos de matriz de rigidez locales y
-    #transformación a globales para ensamble, guardados en km
+    # Creación de elementos de matriz de rigidez locales y
+    # transformación a globales para ensamble, guardados en km
     pin_jointed()
 
-    #Ensamble del vector kv, que toma la diagonal principal
-    #y la sección triangular superior para aprovechar simetría
+    # Ensamble del vector kv, que toma la diagonal principal
+    # y la sección triangular superior para aprovechar simetría
     form_kv()
 
-    #Recupera el vector de fuerzas
+    # Recupera el vector de fuerzas
     calcular_loads()
 
     print("La matriz nf:")
@@ -41,7 +44,7 @@ def main():
     print(gd.nband)
 
     print("Primer km local:")
-    print(gd.km_locales[20])
+    print(gd.km_locales[0])
 
     print("El vector de kv:")
     print(gd.kv)
@@ -51,9 +54,14 @@ def main():
 
     subrutina_banred()
 
-    #Resolucion de F=k*u, para obtener deformaciones
+    # Resolucion de F=k*u, para obtener deformaciones
     print("Las deformaciones son:")
     subrutina_resolverKu()
+
+    print("Postprocesamiento")
+    obtener_mat_def_completa()
+    transformar_barra_angulo()
+    obtenerReacciones()
 
 if __name__ == "__main__":
     main()
