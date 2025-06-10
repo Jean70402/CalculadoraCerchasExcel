@@ -57,8 +57,8 @@ def transformar_barra_angulo():
             print("Uglobal:")
             print(u_global)
 
-            u_local = u_global  # en 1D no rotas nada
-            axial = ea_L * (u_local[0] - u_local[1])
+            u_local = u_global
+            axial = ea_L * (u_local[1] - u_local[0])
             if abs(axial) < 1e-8:
                 axial = 0.0
             else:
