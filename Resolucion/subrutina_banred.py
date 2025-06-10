@@ -5,7 +5,8 @@ from Resolucion.subrutina_backsub import backward_substitution_band,forward_subs
 
 def subrutina_banred():
     print("Aqui viene Banred")
-    n = len(gd.km_locales)
+    n = gd.neq
+    print(n)
     bk = np.array(gd.kv)
     bk_ordenado = bk.reshape(-1, n)
     bw = int(gd.nband)
@@ -27,17 +28,17 @@ def cholesky_band(band, bw):
     for j in range(n):
         sum_diag = 0.0
         for k in range(1, bw + 1):
-            if j - k < 0:
+            if j - k < 0 or k >= band.shape[0]:
                 break
             sum_diag += L[k, j - k] ** 2
         L[0, j] = np.sqrt(band[0, j] - sum_diag)
 
         for i in range(1, bw + 1):
-            if j + i >= n:
+            if j + i >= n or i >= band.shape[0]:
                 break
             sum_off = 0.0
             for k in range(1, bw - i + 1):
-                if j - k < 0 or j + i - k < 0:
+                if j - k < 0 or j + i - k < 0 or (k + i) >= band.shape[0] or k >= band.shape[0]:
                     break
                 sum_off += L[k, j - k] * L[k + i, j - k]
             L[i, j] = (band[i, j] - sum_off) / L[0, j]

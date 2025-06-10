@@ -8,7 +8,8 @@ def backward_substitution_band(L, bw, y):
     for i in reversed(range(n)):
         s = y[i]
         for k in range(1, min(bw + 1, n - i)):
-            s -= L[k, i] * x[i + k]
+            if k < L.shape[0]:  # protección adicional
+                s -= L[k, i] * x[i + k]
         x[i] = s / L[0, i]
     return x
 
@@ -20,7 +21,8 @@ def forward_substitution_band(L, bw, b):
     for i in range(n):
         s = b[i]
         for k in range(1, min(bw + 1, i + 1)):
-            s -= L[k, i - k] * y[i - k]
+            if k < L.shape[0]:  # protección adicional
+                s -= L[k, i - k] * y[i - k]
         y[i] = s / L[0, i]
     return y
 

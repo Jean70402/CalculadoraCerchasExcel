@@ -17,4 +17,6 @@ def form_kv():
                             ival = int(gd.neq * (icd - 1) + g[i])
                             #print(ival)
                             kv[ival - 1] += gd.km_locales[contador1][i][j]
+    if gd.ndim == 1 and kv[-1] == 0.0:
+        kv = kv[:-1]
     gd.kv = kv

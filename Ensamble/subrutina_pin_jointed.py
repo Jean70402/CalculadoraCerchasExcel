@@ -20,8 +20,23 @@ def pin_jointed():
 
         # detalle para 1 dimension
         if gd.ndim == 1:
-            ell = list(coords_i[0] - coords_j[0])
-            gd.elementos.append(ell)
+            x1 = coords_j[0]
+            x2 = coords_i[0]
+            ell = abs(x2 - x1)
+            if ell == 0:
+                raise ValueError("Longitud del elemento 0, nodos coinciden.")
+
+            ea = insertarEa(fila[0])
+            ea_L = ea / ell
+            km_local = np.array([
+                [1, -1],
+                [-1, 1]
+            ]) * ea_L
+
+            km_g.append(km_local)
+            completo = np.append(fila, ell)
+            elementos.append(completo)
+            print(km_local)
         # detalle para 2 dimensiones
         if gd.ndim == 2:
             # Toma de datos de las posiciones de nodos conectados
