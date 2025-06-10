@@ -5,7 +5,8 @@ from discretizacion.subrutina_form_nf import subrutina_form_nf
 from discretizacion.subrutina_num_to_g_g import subrutina_num_to_g_g
 from Ensamble.subrutina_pin_jointed import pin_jointed
 from Ensamble.subrutina_loads import calcular_loads
-
+from Resolucion.subrutina_banred import subrutina_banred
+from Resolucion.subrutina_resolverKu import subrutina_resolverKu
 def main():
     # Lectura de datos de excel, y definir variables globales
     discretizacion.lecturaDatos.leer_datos_desde_excel()
@@ -47,6 +48,12 @@ def main():
 
     print("El vector de cargas:")
     print(gd.loads)
+
+    subrutina_banred()
+
+    #Resolucion de F=k*u, para obtener deformaciones
+    print("Las deformaciones son:")
+    subrutina_resolverKu()
 
 if __name__ == "__main__":
     main()

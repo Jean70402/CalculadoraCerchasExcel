@@ -16,3 +16,5 @@ num = None
 g_g = None
 props =None
 loads=None
+inv_mat=None
+loads_reducido=None
