@@ -103,6 +103,52 @@ def transformar_barra_angulo():
             else:
                 axiales.append(axial.item())
 
+# ——— SECCIÓN PARA 3D (dentro de transformar_barra_angulo) ———
+# ——— SECCIÓN PARA 3D (dentro de transformar_barra_angulo) ———
+        if gd.ndim == 3:
+            # 1) Extraemos nodos i/j
+            nodo_i = int(fila[1])
+            nodo_j = int(fila[2])
+
+            # 2) Construimos la lista de DOF globales (0-based) en el mismo orden local:
+            #    [ux_i, uy_i, uz_i, ux_j, uy_j, uz_j]
+            dofs = [
+                3*nodo_i + 0,  3*nodo_i + 1,  3*nodo_i + 2,
+                3*nodo_j + 0,  3*nodo_j + 1,  3*nodo_j + 2,
+                ]
+
+            # 3) Montamos u_global (6×1) leyendo directamente de u_completa
+            u_global = np.zeros((6,1))
+            for k, dof in enumerate(dofs):
+                u_global[k, 0] = gd.u_completa[dof, 0]
+
+            # 4) Vector director y longitud
+            x1, y1, z1 = coords_j
+            x2, y2, z2 = coords_i
+            xl, yl, zl = x2 - x1, y2 - y1, z2 - z1
+            ell = math.sqrt(xl*xl + yl*yl + zl*zl)
+            xl, yl, zl = xl/ell, yl/ell, zl/ell
+
+            # 5) EA/L y km_local
+            ea_L = insertarEa(fila[0]) / ell
+            a, b, c = xl*xl, yl*yl, zl*zl
+            d, e, f = xl*yl, yl*zl, zl*xl
+            km = np.array([
+                [ a, d, f, -a, -d, -f],
+                [ d, b, e, -d, -b, -e],
+                [ f, e, c, -f, -e, -c],
+                [-a,-d,-f,  a,  d,  f],
+                [-d,-b,-e,  d,  b,  e],
+                [-f,-e,-c,  f,  e,  c]
+            ]) * ea_L
+
+            # 6) Fuerza local y componente axial
+            F_loc    = km @ u_global
+            axial    = F_loc[0,0]
+            axial    = 0.0 if abs(axial) < 1e-12 else axial
+
+            axiales.append(axial)
+
     axiales = np.array(axiales)[:, np.newaxis]
     print("Los axiales son: ")
     print(axiales)
