@@ -23,5 +23,5 @@ def calcular_loads():
     # Reducción: selecciona solo los GDL libres
     loads_reducido = loads_col[gdl_libres]
     gd.loads_reducido=loads_reducido
-    print("Cargas reducidas:")
-    print(gd.loads_reducido)
+    #print("Cargas reducidas:")
+    #print(gd.loads_reducido)

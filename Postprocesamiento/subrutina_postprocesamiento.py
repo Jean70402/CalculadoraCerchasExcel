@@ -5,6 +5,7 @@ import numpy as np
 import discretizacion.datosGenerales as gd  # Usamos gd
 from discretizacion.insertarEA import insertarEa
 from Ensamble.subrutina_form_global import form_global
+from discretizacion.print_seccion import print_seccion,print_nodos_formato,print_elementos_formato_linea
 
 
 def obtener_mat_def_completa():
@@ -14,6 +15,8 @@ def obtener_mat_def_completa():
     # Contador para recorrer el vector u (solo los gdl activos)
     contador_u = 0
 
+    #Bucle para colocar valores de 0 en la matriz de deformaciones
+    #En los grados de libertad restringidos.
     for gdl in gd.gdl_completos:
         if gdl == 0:
             u_completa.append(0.0)
@@ -22,9 +25,10 @@ def obtener_mat_def_completa():
             contador_u += 1
 
     # Convertimos a array columna
-    print("Vector u_completo:")
+    print_seccion("Las deformaciones (cm) son:")
     gd.u_completa = np.array(u_completa).reshape(-1, 1)
-    print(gd.u_completa)
+    result_cm = np.round(gd.u_completa * 100, 3)
+    print_nodos_formato(result_cm,gd.ndim)
 
 
 def transformar_barra_angulo():
@@ -47,16 +51,17 @@ def transformar_barra_angulo():
             ell = abs(x2 - x1)
             ea = insertarEa(fila[0])
             ea_L = ea / ell
-
+            #Obtener conexiones para conocer los nodos conectados, según
+            # estos, colocar la matriz de rotación correspondiente.
             conex = gd.num[idx]
-            print("conex:", conex)
+           # print("conex:", conex)
             u_global = np.zeros((2, 1))
 
             for i in range(2):
                 u_global[i, 0] = gd.u_completa[conex[i], 0]  # asigna valor desde u_completa
 
-            print("Uglobal:")
-            print(u_global)
+            #print("Uglobal:")
+            #print(u_global)
 
             u_local = u_global
             axial = ea_L * (u_local[1] - u_local[0])
@@ -78,12 +83,14 @@ def transformar_barra_angulo():
             # Cálculo de senos y cosenos
             cos = (x2 - x1) / ell
             sen = (y2 - y1) / ell
-
+            #matris de rotación para elemento.
             mat_angulo = np.array([
                 [cos, sen, 0, 0],
                 [0, 0, cos, sen]
             ])
             #print(mat_angulo)
+            #Obtener conexiones para conocer los nodos conectados, según
+            # estos, colocar la matriz de rotación correspondiente.
             conex = gd.g_g[idx]  # por ejemplo: array([0., 0., 3., 4.])
             conex = conex.astype(int)  # aseguramos enteros para índices
 
@@ -104,8 +111,6 @@ def transformar_barra_angulo():
             else:
                 axiales.append(axial.item())
 
-        # ——— SECCIÓN PARA 3D (dentro de transformar_barra_angulo) ———
-        # ——— SECCIÓN PARA 3D (dentro de transformar_barra_angulo) ———
         if gd.ndim == 3:
             # 1) Extraemos nodos i/j
             nodo_i = int(fila[1])
@@ -151,8 +156,8 @@ def transformar_barra_angulo():
             axiales.append(axial)
 
     axiales = np.array(axiales)[:, np.newaxis]
-    print("Los axiales son: ")
-    print(axiales)
+    print_seccion("Los axiales son (kN): ")
+    print_elementos_formato_linea(axiales, gd.nels)
 
 
 def obtenerReacciones():
@@ -163,6 +168,5 @@ def obtenerReacciones():
 
     # Redondear a 2 decimales y eliminar residuos numéricos cercanos a cero
     reacciones = np.where(np.abs(reacciones) < 1e-12, 0, np.round(reacciones, 2))
-    print("Las reacciones son:")
-    print(reacciones)
-    return reacciones
+    print_seccion("Las reacciones son (kN):")
+    print_nodos_formato(reacciones,gd.ndim)

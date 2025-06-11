@@ -36,7 +36,6 @@ def pin_jointed():
             km_g.append(km_local)
             completo = np.append(fila, ell)
             elementos.append(completo)
-            print(km_local)
         # detalle para 2 dimensiones
         if gd.ndim == 2:
             # Toma de datos de las posiciones de nodos conectados

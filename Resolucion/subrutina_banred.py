@@ -1,19 +1,20 @@
 import numpy as np
 
 import discretizacion.datosGenerales as gd
-from Resolucion.subrutina_backsub import backward_substitution_band,forward_substitution_band
+from Resolucion.subrutina_backsub import backward_substitution_band, forward_substitution_band
+
 
 def subrutina_banred():
-    print("Aqui viene Banred")
-    n     = gd.neq
-    bk    = np.array(gd.kv)
+
+    n = gd.neq
+    bk = np.array(gd.kv)
     # filas = número real de diagonales almacenadas
-    rows  = bk.size // n
+    rows = bk.size // n
     # ancho de banda efectivo
     bw_eff = rows - 1
 
     # sólo tomo esa porción útil
-    bk_band    = bk[: rows * n]
+    bk_band = bk[: rows * n]
     bk_ordenado = bk_band.reshape(rows, n)
 
     L = cholesky_band(bk_ordenado, bw_eff)
@@ -24,9 +25,10 @@ def subrutina_banred():
         y = forward_substitution_band(L, bw_eff, e)
         x = backward_substitution_band(L, bw_eff, y)
         inv_mat[:, j] = x
-    print("Inversa de la matriz reducida es:")
+    print("Primer valor de la matriz reducida:")
     gd.inv_mat = inv_mat
-    print(inv_mat)
+    print(inv_mat[0])
+
 
 def cholesky_band(band, bw):
     n = band.shape[1]
@@ -49,4 +51,3 @@ def cholesky_band(band, bw):
                 sum_off += L[k, j - k] * L[k + i, j - k]
             L[i, j] = (band[i, j] - sum_off) / L[0, j]
     return L
-

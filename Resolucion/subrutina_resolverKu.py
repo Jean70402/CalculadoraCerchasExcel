@@ -8,4 +8,7 @@ def subrutina_resolverKu():
     # Multiplicar
     result = inv_mat @ gd.loads_reducido
     gd.mat_def_u = result
-    print(result)
+
+    # Convertir a cm y redondear a 3 decimales
+    #result_cm = np.round(result * 100, 3)
+    #print(result_cm)

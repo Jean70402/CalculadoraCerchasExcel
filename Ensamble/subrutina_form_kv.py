@@ -8,7 +8,6 @@ def form_kv():
     bw = int(gd.nband)
     rows = bw + 1
     kv = zeros(rows * n)
-    # print(len(kv))
     for contador1 in range(len(gd.g_g)):
         g = gd.g_g[contador1, :]
         for i in range(2 * gd.ndim):
@@ -22,3 +21,4 @@ def form_kv():
     if gd.ndim == 1 and kv[-1] == 0.0:
         kv = kv[:-1]
     gd.kv = kv
+
