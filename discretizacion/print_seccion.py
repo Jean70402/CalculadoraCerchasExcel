@@ -24,6 +24,12 @@ def print_elementos_formato_linea(matriz, nels):
     for i in range(nels):
         print(f"                          Barra {i + 1}   =   {matriz[i]:.2f}")
 
+def print_def_unit(matriz, nels):
+    matriz = matriz.flatten()
+
+    for i in range(nels):
+        print(f"                          Deformacion {i + 1}   =   {matriz[i]:.10f}")
+
 def print_seccion_titulo(titulo):
     ancho = 100
     decorador = "═"

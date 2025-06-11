@@ -4,7 +4,7 @@ from Ensamble.subrutina_form_kv import form_kv
 from Ensamble.subrutina_loads import calcular_loads
 from Ensamble.subrutina_pin_jointed import pin_jointed
 from Postprocesamiento.subrutina_postprocesamiento import obtener_mat_def_completa, transformar_barra_angulo, \
-    obtenerReacciones
+    obtenerReacciones, postprocesamiento_def_unit_y_esfuerzo
 from Resolucion.subrutina_banred import subrutina_banred
 from Resolucion.subrutina_resolverKu import subrutina_resolverKu
 from discretizacion.subrutina_form_nf import subrutina_form_nf
@@ -68,6 +68,6 @@ def main():
     obtener_mat_def_completa()
     transformar_barra_angulo()
     obtenerReacciones()
-
+    postprocesamiento_def_unit_y_esfuerzo()
 if __name__ == "__main__":
     main()
