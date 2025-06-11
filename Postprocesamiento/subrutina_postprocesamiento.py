@@ -223,7 +223,7 @@ def postprocesamiento_def_unit_y_esfuerzo():
         esfuerzos.append(sigma)
 
     # 3) Guardar y mostrar
-    gd.deform_unit = np.array(deform_unit).reshape(-1, 1)
+    gd.deform_unit = (np.array(deform_unit).reshape(-1, 1))*-1
     gd.esfuerzo = np.array(esfuerzos).reshape(-1, 1)
 
     print_seccion("Deformaciones unitarias ε:")
