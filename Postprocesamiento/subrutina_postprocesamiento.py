@@ -200,10 +200,7 @@ def obtenerReacciones():
 
 
 def postprocesamiento_def_unit_y_esfuerzo():
-    # 1) Asegúrate de tener desplazamientos completos, axiales, u_locales y longitudes
-    obtener_mat_def_completa()
-    transformar_barra_angulo()
-
+    # 1) vectores vacios para deformacion y esfuerzos
     deform_unit = []
     esfuerzos = []
 
@@ -216,7 +213,7 @@ def postprocesamiento_def_unit_y_esfuerzo():
         eps = delta / L
         deform_unit.append(eps)
 
-        # --- Esfuerzo σ = N / A (lo dejamos igual) ---
+        # --- Esfuerzo σ = N / A ---
         N = float(gd.axiales[idx])  # fuerza axial [kN]
         A = insertarA(fila[0])  # área [cm²]
         sigma = N / A
