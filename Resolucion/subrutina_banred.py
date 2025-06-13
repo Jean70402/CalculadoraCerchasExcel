@@ -18,17 +18,12 @@ def subrutina_banred():
     bk_ordenado = bk_band.reshape(rows, n)
 
     L = cholesky_band(bk_ordenado, bw_eff)
-    inv_mat = np.zeros((n, n))
-    for j in range(n):
-        e = np.zeros(n)
-        e[j] = 1.0
-        y = forward_substitution_band(L, bw_eff, e)
-        x = backward_substitution_band(L, bw_eff, y)
-        inv_mat[:, j] = x
-    print("Primer valor de la matriz reducida:")
-    gd.inv_mat = inv_mat
-    print(inv_mat[0])
-
+    b = gd.loads_reducido.flatten()
+    y = forward_substitution_band(L, bw_eff, b)
+    x = backward_substitution_band(L, bw_eff, y)
+    gd.mat_def_u = x.reshape(-1, 1)
+    result_cm = np.round(gd.mat_def_u * 100, 5)
+    print("Deformaciones (cm): \n", result_cm)
 
 def cholesky_band(band, bw):
     n = band.shape[1]

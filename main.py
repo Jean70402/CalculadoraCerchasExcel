@@ -6,7 +6,6 @@ from Ensamble.subrutina_pin_jointed import pin_jointed
 from Postprocesamiento.subrutina_postprocesamiento import obtener_mat_def_completa, transformar_barra_angulo, \
     obtenerReacciones, postprocesamiento_def_unit_y_esfuerzo
 from Resolucion.subrutina_banred import subrutina_banred
-from Resolucion.subrutina_resolverKu import subrutina_resolverKu
 from discretizacion.subrutina_form_nf import subrutina_form_nf
 from discretizacion.subrutina_num_to_g_g import subrutina_num_to_g_g
 from discretizacion.print_seccion import print_seccion, print_seccion_titulo
@@ -58,9 +57,6 @@ def main():
     print_seccion("Reducción mediante cholesky y sustitución mediante Gauss modificado (kv):")
     subrutina_banred()
 
-    # Resolucion de F=k*u, para obtener deformaciones
-
-    subrutina_resolverKu()
 
     #Subrutinas de postprocesamiento, incluyendo calcular nuevamente
     # la matriz de rigidez global y de deformaciones completas

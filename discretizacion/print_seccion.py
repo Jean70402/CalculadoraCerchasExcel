@@ -14,7 +14,7 @@ def print_nodos_formato(matriz, ndim):
     for i in range(0, len(matriz), ndim):
         linea = "      "
         for j in range(ndim):
-            linea += f"         {etiquetas[j]}{(i//ndim)+1} = {matriz[i+j]:.2f}           "
+            linea += f"         {etiquetas[j]}{(i//ndim)+1} = {matriz[i+j]:.5f}           "
         print(linea)
     print()
 
@@ -22,7 +22,7 @@ def print_elementos_formato_linea(matriz, nels):
     matriz = matriz.flatten()
 
     for i in range(nels):
-        print(f"                          Barra {i + 1}   =   {matriz[i]:.2f}")
+        print(f"                          Barra {i + 1}   =   {matriz[i]:.5f}")
 
 def print_def_unit(matriz, nels):
     matriz = matriz.flatten()
